@@ -35,7 +35,7 @@ class TasksController < ApplicationController
   end
 
   private def task_params
-    params.permit(:task).require(:description, :label_list, logs_attributes: [:assignee_id, :status]).tap do |param|
+    params.require(:task).permit(:description, :label_list, logs_attributes: [:assignee_id, :status]).tap do |param|
       param.logs_attributes.each do |log|
         log[:assignor_id] = current_user.id
       end
